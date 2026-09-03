@@ -77,7 +77,7 @@ h1, .brand {
 }
 
 .hero {
-    padding: 4.5rem 0 5rem;
+    padding: 2.5rem 0 5rem;
 }
 
 .hero-grid {
@@ -222,8 +222,13 @@ transition: .2s ease-out;
 }
 
 .skills img{
-    width: 100%;
-    height: auto;
+    width: 80%;
+    height: 12vw;
+    max-height: 220px;
+    min-height: 120px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 24px;
 }
 
 .skills{
@@ -240,6 +245,7 @@ transition: .2s ease-out;
 .skills p{
     color: var(--text-muted);
     font-size: 12px;
+    transition: .2s ease-out;
 }
 
 .skills h2{
@@ -259,7 +265,6 @@ transition: .2s ease-out;
 -webkit-box-shadow: 0px 10px 24px -7px rgba(255,255,255,0.22);
 -moz-box-shadow: 0px 10px 24px -7px rgba(255,255,255,0.22);
 }
-
 
 
 
@@ -308,7 +313,28 @@ transition: .2s ease-out;
     }
 
     .skills-cont{
-        overflow: scroll;
+        flex-direction: column;
+    }
+
+
+    .skills h2{
+        font-size: 20px;
+    }
+
+    .skills{
+        padding: 24px;
+        gap: 16px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .skills img{
+        height: 100%;
+        max-height: 125px;
+    }
+    
+    .skill-text{
+        text-align: left;
     }
 
     .hero{
@@ -317,5 +343,8 @@ transition: .2s ease-out;
     .container{
         padding-top: 1.5rem;
     }
-   
+
+    #profile{
+        padding-top: 5em;
+    }
 }
