@@ -13,7 +13,7 @@ html{
     --paper: #f9fbfe;
     --darker-paper: #e7ebf4;
     --accent: #3989d9;
-    --accent-dark: #2a2aa8;
+    --accent-dark: #2a5ca8;
     --line: #e3d9c9;
     --text-muted: #6b6459;
     --radius: 25px;
@@ -171,11 +171,16 @@ h1, .brand {
     background-color: var(--accent);
 }
 
-.hero-photo {
+.photo-section {
     grid-area: photo;
-    align-self: center;
+    align-self: start;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-photo {
     position: relative;
-    
 }
 
 .photo-block {
@@ -190,11 +195,6 @@ h1, .brand {
 -webkit-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
 -moz-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
 transition: .2s ease-out;
-}
-
-.hero-photo:has(.avatar:hover) .photo-block {
-    height: 45%;
-    top: 55%;
 }
 
 .avatar {
@@ -255,6 +255,9 @@ transition: .2s ease-out;
 
 .skills:hover{
     transform: translateY(-15px);
+    box-shadow: 0px 10px 24px -7px rgba(255,255,255,0.22);
+-webkit-box-shadow: 0px 10px 24px -7px rgba(255,255,255,0.22);
+-moz-box-shadow: 0px 10px 24px -7px rgba(255,255,255,0.22);
 }
 
 
@@ -262,7 +265,32 @@ transition: .2s ease-out;
 
 
 
+
+
 @media (max-width: 600px) {
+    html,
+    body {
+        width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .site-header .container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .site-header nav {
+        gap: 1rem;
+    }
+
     .hero-grid {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -271,11 +299,23 @@ transition: .2s ease-out;
             "details";
     }
 
-    .hero-photo {
+    .hero-photo{
         max-width: 220px;
     }
 
     .social-links {
         justify-content: flex-start;
     }
+
+    .skills-cont{
+        overflow: scroll;
+    }
+
+    .hero{
+        padding: 2.5rem 0 5rem;
+    }
+    .container{
+        padding-top: 1.5rem;
+    }
+   
 }
