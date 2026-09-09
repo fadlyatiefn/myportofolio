@@ -13,13 +13,7 @@ def show_main(request):
         "npm": "2506624940",
         "study_program": "S1 Information System",
         "bio": (
-            "I am a second-year Information Systems student at Universitas "
-            "Indonesia who is enthusiastic about the dynamic intersection of "
-            "technology, design, and business. I believe that truly great products"
-            "are born from a perfect harmony of solid backend systems, "
-            "engaging visuals, and strong business value. I am actively "
-            "translating this passion into various digital design and development "
-            "projects to build my expertise."
+            "I am a second-year Information Systems student at Universitas Indonesia who is enthusiastic about the dynamic intersection of technology, design, and business. I believe that truly great products are born from a perfect harmony of solid backend systems, engaging visuals, and strong business value. I am actively translating this passion into various digital design and development projects to build my expertise."
         ),
         "skills_1": ["Python", "Equipped with a solid foundation in programming principles, utilizing Python for scripting and logical problem-solving.", "/static/img/python.png"],
         "skills_2": ["Java", "Familiar with Object-Oriented Programming (OOP) concepts, writing structured code, and implementing basic unit tests.", "/static/img/java.png"],
