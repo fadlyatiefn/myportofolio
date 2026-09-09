@@ -15,8 +15,9 @@ html{
     --accent: #3989d9;
     --accent-dark: #2a5ca8;
     --line: #e3d9c9;
-    --text-muted: #6b6459;
+    --text-muted: #9495b3;
     --radius: 25px;
+    --drop-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17); -webkit-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17); -moz-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
 }
 
 body {
@@ -46,9 +47,7 @@ h1, .brand {
     box-sizing: border-box;
     border-radius: 0 0 25px 25px;
     border: none;
-    box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
--webkit-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
--moz-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
+    box-shadow: var(--drop-shadow);
 }
 
 .site-header .container {
@@ -191,9 +190,7 @@ h1, .brand {
     background-color: var(--accent);
     border-radius: var(--radius);
     z-index: 0;
-    box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
--webkit-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
--moz-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
+    box-shadow: var(--drop-shadow);
 transition: .2s ease-out;
 }
 
@@ -233,9 +230,7 @@ transition: .2s ease-out;
 
 .skills{
     background-color: var(--paper);
-    box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
--webkit-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
--moz-box-shadow: -1px 12px 30px -7px rgba(0,0,0,0.17);
+    box-shadow: var(--drop-shadow);
     border-radius: 25px;
     padding: 32px 24px;
     text-align: center;
@@ -296,12 +291,48 @@ transition: .2s ease-out;
     gap: 1rem;
 }
 
+.project-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .experience-card {
     padding: 1.25rem;
     background-color: #fff;
     border: 1px solid var(--line);
     border-radius: var(--radius);
 }
+.project-card {
+    color: var(--accent);
+    border-radius: var(--radius);
+    box-shadow: var(--drop-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: var(--paper);
+    transition: .2s ease-out;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-thumb {
+    min-width: 100px;
+    width: 30vw;
+    background-image: var(--bg-url);
+    background-size: cover;
+    background-position: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 100%);
+}
+
+.project-body {
+    padding: 1.25rem;
+}
+
 
 .experience-category {
     color: var(--accent-dark);

@@ -32,6 +32,8 @@ class Projects(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     project_name = models.CharField(max_length=255)
     project_desc = models.TextField()
+    thumbnail = models.URLField(blank=True, null=True)
+    project_link = models.URLField(blank=True, null=True)
     project_start = models.DateTimeField(auto_now_add=True)
     project_end = models.DateTimeField(blank=True, null=True)
 
