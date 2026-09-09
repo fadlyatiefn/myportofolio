@@ -36,7 +36,7 @@ class Projects(models.Model):
     project_end = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-            return self.title
+            return self.project_name
         
     @property
     def is_ongoing(self):

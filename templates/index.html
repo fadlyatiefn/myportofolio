@@ -58,10 +58,10 @@
             </div>
         </section>
         <section class="hero skills-hero" id="skills">
-            <div class="container hero-grid-skills">
+            <div class="container hero-grid-col">
                 <div class="hero-identity">
                     <h1>Skills</h1>
-                    <p class="bio-width100">Welcome to my digital playground! Here’s what I use to code, design, and build cool stuff.
+                    <p class="bio-width100">{{skills_bio}}
 </p>
                 </div>
                 <div class="skills-cont">
@@ -88,6 +88,34 @@
                     </div>
                     
                 </div>
+        </section>
+
+        <section class="hero projects-hero" id="projects">
+            <div class="container hero-grid-col">
+                <div class="hero-identity">
+                    <h1>Projects</h1>
+                    <p class="bio-width100">{{projects_bio}}</p>
+                </div>
+                <div class="experience-grid">
+                {% for project in projects %}
+                    <article class="experience-card">
+                        <h2>{{ project.project_name }}</h2>
+                        <p class="experience-description">
+                            {{ project.project_desc }}
+                        </p>
+
+                        {% if project.is_ongoing %}
+                            <p class="experience-status">Sedang berlangsung</p>
+                        {% else %}
+                            <p class="experience-status">{{project.project_start}} - {{project.project_end}}</p>
+                        {% endif %}
+                    </article>
+                {% empty %}
+                    <p class="empty-state">
+                        Belum ada pengalaman yang ditambahkan.
+                    </p>
+                {% endfor %}
+            </div>
         </section>
 
     </main>
