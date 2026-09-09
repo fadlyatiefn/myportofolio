@@ -347,7 +347,7 @@ transition: .2s ease-out;
 }
 
 .experience-description,
-.empty-state {
+.empty-state, .project-description {
     color: var(--text-muted);
 }
 
@@ -357,6 +357,16 @@ transition: .2s ease-out;
     font-weight: 600;
 }
 
+.project-status {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 2px solid var(--accent-dark);
+    color: var(--accent-dark);
+    width: fit-content;
+    padding: 4px 12px;
+    border-radius: var(--radius);
+}
 
 @media (max-width: 600px) {
     html,

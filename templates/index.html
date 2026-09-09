@@ -101,17 +101,26 @@
                     <article class="project-card">
                         <div class="project-body">
                             <h2>{{ project.project_name }}</h2>
-                            <p class="experience-description">
+                            <p class="project-description">
                                 {{ project.project_desc }}
                             </p>
 
                             {% if project.is_ongoing %}
-                                <p class="experience-status">Sedang berlangsung</p>
+                                <p class="project-status">Sedang berlangsung</p>
                             {% else %}
-                                <p class="experience-status">{{project.project_start}} - {{project.project_end}}</p>
+                                <p class="project-status">{{project.project_start}} - {{project.project_end}}</p>
                             {% endif %}
+
+                            {% if project.have_project_link %}
+                                <a href="{{project.project_link}}">
+                                    <button>
+                                        Open Project
+                                    </button>
+                                </a>
+                            {% endif %}
+                            
                         </div>
-                         <div class="project-thumb" style="--bg-url: url('/static/img/focusbuddy.png');"></div>
+                        <div class="project-thumb" style="--bg-url: url('{{ project.thumbnail|default:'/static/img/default_thumb.png' }}');"></div>
                     </article>
                 {% empty %}
                     <p class="empty-state">

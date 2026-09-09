@@ -34,7 +34,7 @@ class Projects(models.Model):
     project_desc = models.TextField()
     thumbnail = models.URLField(blank=True, null=True)
     project_link = models.URLField(blank=True, null=True)
-    project_start = models.DateTimeField(auto_now_add=True)
+    project_start = models.DateTimeField()
     project_end = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
@@ -43,3 +43,7 @@ class Projects(models.Model):
     @property
     def is_ongoing(self):
         return self.project_end is None
+
+    @property
+    def have_project_link(self):
+        return bool(self.project_link)
