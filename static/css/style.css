@@ -14,6 +14,7 @@ html{
     --darker-paper: #e7ebf4;
     --accent: #3989d9;
     --accent-dark: #2a5ca8;
+    --accent-muted: #afc9e4;
     --line: #e3d9c9;
     --text-muted: #9495b3;
     --radius: 25px;
@@ -321,7 +322,7 @@ transition: .2s ease-out;
 
 .project-thumb {
     min-width: 100px;
-    width: 30vw;
+    width: 50vw;
     background-image: var(--bg-url);
     background-size: cover;
     background-position: center;
@@ -361,11 +362,29 @@ transition: .2s ease-out;
     margin-top: 1rem;
     font-size: 0.75rem;
     font-weight: 600;
-    border: 2px solid var(--accent-dark);
-    color: var(--accent-dark);
+    border: 2px solid var(--accent-muted);
+    color: var(--accent-muted);
     width: fit-content;
     padding: 4px 12px;
     border-radius: var(--radius);
+}
+
+.project-btn{
+    padding: 12px 16px;
+    font-size: 12px;
+    background: var(--accent);
+    color: var(--paper);
+    border: 0px;
+    border-radius: var(--radius);
+    margin-top: 12px;
+    font-weight: 600;
+    display: flex;
+    gap: 4px;
+    transition: .2s ease-out;
+}
+
+.project-btn:hover{
+    background: var(--accent-dark);
 }
 
 @media (max-width: 600px) {
