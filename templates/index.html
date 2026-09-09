@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fadly - Portfolio</title>
+    <title>{{name}} - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -12,10 +12,11 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="#profile" class="brand">Fadly's Portofolio</a>
+            <a href="{% url 'main:show_main' %}" class="brand">{{name}}'s Portofolio</a>
             <nav>
-                <a href="#profile">Profile</a>
-                <a href="#skills">Skills</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_main' %}#skills">Skills</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
         </div>
     </header>
@@ -25,25 +26,27 @@
             <div class="container hero-grid">
                 <div class="hero-identity">
                     <p class="hero-kicker">Information System &middot; Universitas Indonesia</p>
-                    <h1>Fadly Atief Nauval</h1>
+                    <h1>{{full_name}}</h1>
                 </div>
                 <div class="photo-section">
                 <div class="hero-photo">
                     <div class="photo-block"></div>
-                    <img class="avatar" src="/static/img/foto_diri_transparent.png" alt="Photo of Fadly">
+                    <img class="avatar" src="/static/img/foto_diri_transparent.png" alt="Photo of {{name}}">
                 </div>
                 </div>
                 <div class="hero-details">
-                    <p class="bio">I am a second-year Information Systems student at Universitas Indonesia who is enthusiastic about the dynamic intersection of technology, design, and business. I believe that truly great products are born from a perfect harmony of solid backend systems, engaging visuals, and strong business value. I am actively translating this passion into various digital design and development projects to build my expertise.
+                    <p class="bio">
+                        {{bio}}
+                    </p>
 </p>
                     <dl class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506624940</dd>
+                            <dd>{{npm}}</dd>
                         </div>
                         <div class="meta-row">
                             <dt>Program</dt>
-                            <dd>S1 Sistem Informasi</dd>
+                            <dd>{{ study_program }}</dd>
                         </div>
                     </dl>
                     <div class="social-links">
@@ -63,24 +66,24 @@
                 </div>
                 <div class="skills-cont">
                     <div class="skills">
-                        <img src="/static/img/python.png" alt="">
+                        <img src="{{skills_1.2}}" alt="">
                         <div class="skill-text">
-                        <h2>Python</h2>
-                        <p>Equipped with a solid foundation in programming principles, utilizing Python for scripting and logical problem-solving.</p>
+                        <h2>{{skills_1.0}}</h2>
+                        <p>{{skills_1.1}}
                         </div>
                     </div>
                     <div class="skills">
-                        <img src="/static/img/java.png" alt="">
+                        <img src="{{skills_2.2}}" alt="">
                         <div class="skill-text">
-                        <h2>Java</h2>
-                        <p>Familiar with Object-Oriented Programming (OOP) concepts, writing structured code, and implementing basic unit tests.</p>
+                        <h2>{{skills_2.0}}</h2>
+                        <p>{{skills_2.1}}</p>
                         </div>
                     </div>
                     <div class="skills">
-                        <img src="/static/img/figma.png" alt="">
+                        <img src="{{skills_3.2}}" alt="">
                         <div class="skill-text">
-                        <h2>UI/UX</h2>
-                        <p>Experienced in translating ideas into interactive prototypes using Figma and applying design thinking frameworks.</p>
+                        <h2>{{skills_3.0}}</h2>
+                        <p>{{skills_3.1}}</p>
                         </div>
                     </div>
                     
@@ -91,7 +94,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Fadly. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{name}}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
 </body>
