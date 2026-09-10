@@ -89,10 +89,15 @@
                     </div>
                     
                 </div>
+                
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-skills">
+  <path fill="#2B547E" fill-opacity="1" d="M0,64L30,90.7C60,117,120,171,180,181.3C240,192,300,160,360,170.7C420,181,480,235,540,240C600,245,660,203,720,154.7C780,107,840,53,900,32C960,11,1020,21,1080,58.7C1140,96,1200,160,1260,186.7C1320,213,1380,203,1410,197.3L1440,192L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path>
+</svg> -->
         </section>
 
         <section class="hero projects-hero" id="projects">
-            <div class="container hero-grid-col">
+            <img src="/static/img/batuan.png" alt="" class="wave-skills">
+            <div class="container hero-grid-col project-cont">
                 <div class="hero-identity">
                     <h1>Projects</h1>
                     <p class="bio-width100">{{projects_bio}}</p>
@@ -107,7 +112,7 @@
                             </p>
 
                             {% if project.is_ongoing %}
-                                <p class="project-status">Sedang berlangsung</p>
+                                <p class="project-status">Masih berlangsung</p>
                             {% else %}
                                 <p class="project-status">{{project.project_start}} - {{project.project_end}}</p>
                             {% endif %}
