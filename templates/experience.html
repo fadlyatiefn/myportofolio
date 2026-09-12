@@ -13,12 +13,18 @@
     <header class="site-header">
         <div class="container">
             <a href="{% url 'main:show_main' %}" class="brand">{{name}}'s Portofolio</a>
-            <nav>
-                <a href="{% url 'main:show_main' %}">Profile</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="siteNav">
+                <a href="{% url 'main:show_main' %}#profile">Profile</a>
                 <a href="{% url 'main:show_main' %}#skills">Skills</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
                 <a href="{% url 'main:show_main' %}#projects">Projects</a>
             </nav>
+            
         </div>
     </header>
 
@@ -61,4 +67,6 @@
         </div>
     </footer>
 </body>
+
+<script src="/static/js/script.js"></script>
 </html>
