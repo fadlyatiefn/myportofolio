@@ -158,8 +158,6 @@ Kelas : PBP A
 
 ### 🤖 AI Disclosure
 
-Dokumen ini menjelaskan penggunaan AI tools selama pengerjaan Tugas 1 (inisialisasi proyek HTML + CSS + Django), khususnya pada bagian HTML dan CSS yang menjadi fokus penilaian tugas.
-
 #### AI Tools yang Digunakan
 
 - **Claude**: digunakan untuk membantu permasalahan proses git.
@@ -192,4 +190,60 @@ Contohnya saat memperbaiki tampilan **skills-card** untuk versi mobile, solusi l
 #### Perbaikan Manual
 
 Karena solusi AI belum menyelesaikan masalah dengan tepat, saya melakukan penelusuran manual terhadap struktur CSS untuk menemukan akar permasalahan layout (seperti box-sizing, padding/margin yang tidak diperhitungkan, atau parent container yang membatasi width). Proses ini tetap dibantu AI sebagai alat diskusi ketika mengalami kebuntuan, namun keputusan akhir dan penyesuaian struktur CSS dilakukan secara manual berdasarkan pemahaman saya sendiri terhadap penyebab masalahnya, bukan sekadar menerapkan solusi Grid yang disarankan sebelumnya.
+
+
+## Tugas 2
+
+### ❓ Pertanyaan
+1. Alur yang terjadi ketika pengguna membuka url portofolio dari browser (user melakukan *request*), lalu Django akan mengecek prefix pathnya pada `urls.py` project. Setelah itu, akan dilemparnya ke `urls.py` app yang cocok. Setelah ditemukan yang cocok, Django akan memanggil fungsi `views.py` . `views.py` akan melakukan pengambilan dan pemrosesan data dari model apabila dibutuhkan, sekaligus mengirim contextnya ke template portofolio. Setelah itu, templatenya dirender menjadi HTML dan dikembalikan sebagai response kepada user.
+
+2. Alasan mengapa data untuk portofolio disimpan dalam model adalah kemudahan untuk mengedit dan untuk melakukan *scale up* apabila terdapat hal - hal baru yang ingin ditambahkan yang tentunya mempermudah dalam hal pemeliharaan dan pengembangan aplikasi
+
+3. Perbedaan makemigrations dan migrate adalah makemigrations hanya membuat sebuah berkas yang berisi perubahan model yang **belum** diaplikasikan dalam basis data. Sedangkan migrate adalah mengaplikasikan perubahan modelnya yang sudah ada di berkas perubahan model hasil makemigrations ke dalam basis data.
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-2**
+- 9 September 2026: 
+    1. Menyelesaikan setup MVT untuk halaman `experience.html` (Tutorial 2)
+    2. Mengubah bio dari awalnya hardcoded di template menjadi ada di `views.py`
+    3. Fix Django Version
+    4. Membuat model `Project` dan melakukan migrasi model
+    5. Menambahkan section `Project` di halaman utama (`index.html`)
+- 10 September 2026:
+    1. Melakukan redesign pada section skills - project
+    2. Melakukan integrasi model ke admin page
+    3. Memperbaiki error saat adminpage tidak dapat diakses pada versi deploy pws (csrf error)
+    4. Membuat test untuk model Project
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Claude**: digunakan untuk membantu permasalahan layouting pada bagian project-card, git error dan git commit message, dan kode untuk mengecek data apa saja yang sudah tersimpan dan cara menghapusnya, serta mengatasi csrf & admin page error
+    
+    **Link:** https://claude.ai/share/b65a48f1-d5a3-48c5-95a1-56875299a35d
+    **Link:** https://claude.ai/share/8fe37de8-1b6b-42b0-9143-b3866c4a9f72
+
+#### Pembagian Kontribusi
+
+Hampir seluruh bagian saya kerjakan sendiri, termasuk:
+- Pembuatan Model Project, dan integrasinya juga pada `views.py`, `index.html`.
+- Melakukan perubahan di bagian - bagian yang sebelumnya hardcoded pada template
+- Pembuatan tampilan baru section skill-project
+- Penulisan CSS untuk section baru
+
+AI hanya dilibatkan pada bagian tertentu ketika saya mengalami kebuntuan, terutama:
+- Masalah responsivitas tampilan, tampilan belum sesuai harapan sehingga menanyakan inti permasalahan dari kode yang saya buat
+- Saran copywriting untuk isi konten section portofolio & commit message.
+- Error - error yang saya kurang mengerti, seperti csrf error dan error pada halaman admin
+
+#### Keterbatasan AI
+
+(Masih sama dengan Tugas-1)
+Selama proses debugging layout, ditemukan keterbatasan AI dalam **image and context recognition**. AI tidak dapat sepenuhnya memahami konteks visual dari layout yang sedang saya kerjakan, sehingga solusi yang diberikan terkadang tidak sesuai dengan kondisi nyata halaman. Terutama dalam membuat design project-card
+
+
+#### Perbaikan Manual
+Karena terkadang AI masih belum tepat, terutama pada bagian thumbnail untuk project-card, saya melakukan penyesuaian lebih lanjut untuk bagian tersebut agar terlihat lebih responsif
+
 

@@ -19,7 +19,7 @@ class Experience(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=20, choices=EXPERIENCE_CHOICES, default='full-time')
     thumbnail = models.URLField(blank=True, null=True)
-    started_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField()
     ended_at = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.title
@@ -28,3 +28,22 @@ class Experience(models.Model):
     def is_ongoing(self):
         return self.ended_at is None
 
+class Projects(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    project_name = models.CharField(max_length=255)
+    project_desc = models.TextField()
+    thumbnail = models.URLField(blank=True, null=True)
+    project_link = models.URLField(blank=True, null=True)
+    project_start = models.DateTimeField()
+    project_end = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+            return self.project_name
+        
+    @property
+    def is_ongoing(self):
+        return self.project_end is None
+
+    @property
+    def have_project_link(self):
+        return bool(self.project_link)

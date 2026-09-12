@@ -13,11 +13,18 @@
     <header class="site-header">
         <div class="container">
             <a href="{% url 'main:show_main' %}" class="brand">{{name}}'s Portofolio</a>
-            <nav>
-                <a href="{% url 'main:show_main' %}">Profile</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="siteNav">
+                <a href="{% url 'main:show_main' %}#profile">Profile</a>
                 <a href="{% url 'main:show_main' %}#skills">Skills</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_main' %}#projects">Projects</a>
             </nav>
+            
         </div>
     </header>
 
@@ -58,10 +65,10 @@
             </div>
         </section>
         <section class="hero skills-hero" id="skills">
-            <div class="container hero-grid-skills">
+            <div class="container hero-grid-col">
                 <div class="hero-identity">
                     <h1>Skills</h1>
-                    <p class="bio-width100">Welcome to my digital playground! Here’s what I use to code, design, and build cool stuff.
+                    <p class="bio-width100">{{skills_bio}}
 </p>
                 </div>
                 <div class="skills-cont">
@@ -88,6 +95,55 @@
                     </div>
                     
                 </div>
+                
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-skills">
+  <path fill="#2B547E" fill-opacity="1" d="M0,64L30,90.7C60,117,120,171,180,181.3C240,192,300,160,360,170.7C420,181,480,235,540,240C600,245,660,203,720,154.7C780,107,840,53,900,32C960,11,1020,21,1080,58.7C1140,96,1200,160,1260,186.7C1320,213,1380,203,1410,197.3L1440,192L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path>
+</svg> -->
+        </section>
+
+        <section class="hero projects-hero" id="projects">
+            <img src="/static/img/batuan.png" alt="" class="wave-skills">
+            <div class="container hero-grid-col project-cont">
+                <div class="hero-identity">
+                    <h1>Projects</h1>
+                    <p class="bio-width100">{{projects_bio}}</p>
+                </div>
+                <div class="project-flex">
+                {% for project in projects %}
+                    <article class="project-card">
+                        <div class="project-body">
+                            <h2 style="font-size: 32px;">{{ project.project_name }}</h2>
+                            <p class="project-description">
+                                {{ project.project_desc }}
+                            </p>
+
+                            {% if project.is_ongoing %}
+                                <p class="project-status">Masih berlangsung</p>
+                            {% else %}
+                                <p class="project-status">{{project.project_start}}</p>
+                            {% endif %}
+
+                            {% if project.have_project_link %}
+                                <a href="{{project.project_link}}" style="text-decoration:none;" target="_blank">
+                                    <button class="project-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+</svg>
+                                        Open Project
+                                    </button>
+                                </a>
+                            {% endif %}
+                            
+                        </div>
+                        <div class="project-thumb" style="--bg-url: url('{{ project.thumbnail|default:'/static/img/default_thumb.png' }}');"></div>
+                    </article>
+                {% empty %}
+                    <p class="empty-state">
+                        Belum ada project yang ditambahkan.
+                    </p>
+                {% endfor %}
+            </div>
         </section>
 
     </main>
@@ -98,4 +154,6 @@
         </div>
     </footer>
 </body>
+
+<script src="/static/js/script.js"></script>
 </html>
