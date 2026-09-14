@@ -8,6 +8,7 @@
 
 html{
     scroll-behavior: smooth;
+    interpolate-size: allow-keywords;
 }
 
 :root {
@@ -176,16 +177,20 @@ h1, .brand {
     font-size: 0.85rem;
     font-weight: 600;
     text-decoration: none;
-    color: var(--paper);
-    background-color: var(--ink);
-    border-radius: var(--radius);
+    color: var(--ink);
     padding: 0.5rem 1.1rem;
     transition: background-color 0.2s ease;
+    border-radius: var(--radius);
+    padding: 16px 16px 14px 16px;
+    background-color: white;
+    box-shadow: var(--drop-shadow);
 }
 
-.social-link:hover {
+.social-link:hover{
     background-color: var(--accent);
+    color: white;
 }
+
 
 .photo-section {
     grid-area: photo;
@@ -263,6 +268,12 @@ transition: .2s ease-out;
 
 .project-cont{
     padding-top: 0px;
+}
+
+.center{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .skills p{
@@ -504,11 +515,22 @@ transition: .2s ease-out;
     padding-top: 12em;
 }
 
-.centered-text-btn{
-    text-align: center;
-    display: block;
+.lebih-lengkap-btn{
+    transform: translateY(-60px);
     text-decoration: none;
+    color: var(--ink);
+    background: #f9fafee4;
+    box-shadow: var(--drop-shadow);
+    font-size: 16px;
+    padding: 12px 20px;
+    border: 2px solid var(--paper);
+    backdrop-filter: blur(3px);
+}
 
+.lebih-lengkap-btn:hover{
+    background: var(--paper);
+    transform: translateY(-65px);
+    
 }
 
 /* projects */
@@ -678,6 +700,40 @@ transition: .2s ease-out;
 .button-danger {
     background: #b42318;
 }
+
+#socials{
+    display: flex;
+    position: fixed;
+    top: 90%;
+    left: 90%;
+    transform: translate(-70%, -70%);
+    background: white;
+    border-radius: 50px;
+    max-height: 90px;
+    overflow: hidden;
+    z-index: 999999999;
+    box-shadow: var(--drop-shadow);
+    transition: transform .2s ease-out, max-height .3s ease-out;
+}
+
+#socials.open{
+    max-height: 500px;
+    transform: translate(-70%, -87%);
+}
+
+#socials-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    justify-content: flex-end;
+
+}
+
+#socials-cont span{
+    margin-top: 32px;
+}
+
 
 @media (max-width: 600px) {
     html,
