@@ -879,4 +879,8 @@ transition: .2s ease-out;
         text-align: center;
     }
 
+    #socials{
+        left: 85%;
+    }
+
 }
