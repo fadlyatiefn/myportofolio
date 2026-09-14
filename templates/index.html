@@ -105,9 +105,11 @@
                         Belum ada project yang ditambahkan.
                     </p>
                 {% endfor %}
-            <div class="center">
-                <a href="{% url 'main:show_projects' %}" class="project-btn lebih-lengkap-btn">Lebih lengkap</a>
-            </div>
+                {% if top3_projects %}
+                    <div class="center">
+                        <a href="{% url 'main:show_projects' %}" class="project-btn lebih-lengkap-btn">Lebih lengkap</a>
+                    </div>
+                {% endif %}
             </div>
         </section>
 
