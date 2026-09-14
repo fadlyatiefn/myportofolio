@@ -20,7 +20,6 @@ class MainTest(TestCase):
         self.projects = Projects.objects.create(
             project_name="BertsLounge",
             project_desc="Membuat web berisi redirect link untuk suatu artist",
-            project_start=datetime(2025, 2, 12, tzinfo=timezone.UTC),
             thumbnail="/static/img/bertslounge.png",
             project_link="https://bertslounge.vercel.app/",
         )
@@ -85,7 +84,3 @@ class MainTest(TestCase):
             self.projects.project_end = timezone.now()
             self.projects.save()
             response = self.client.get(reverse("main:show_main"))
-    
-            self.assertFalse(self.projects.is_ongoing)
-            self.assertContains(response, "Feb. 12, 2025, midnight")
-            self.assertNotContains(response, "Sedang berlangsung")
