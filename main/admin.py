@@ -11,5 +11,5 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Projects)
 class ProjectsAdmin(admin.ModelAdmin):
-    list_display = ['project_name', 'project_start', 'project_end', 'is_ongoing', 'have_project_link']
+    list_display = ['project_name', 'have_project_link']
     search_fields = ['project_name', 'project_desc']

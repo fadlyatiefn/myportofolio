@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Projects - {{ name }}</title>
+{% endblock meta %}
+
+{% block content %}    
+
+    <main>
+        <section class="hero projects-hero" id="projects">
+            <div class="container hero-grid-col project-cont halaman-project">
+
+                <div class="project-header">
+                    <div class="hero-identity">
+                    <h1>Projects</h1>
+                    <p class="bio-width100">{{ projects_bio }}</p>
+                    </div>
+                    <a href="{% url 'main:create_project' %}" class="button project-add-button">
+                        <span aria-hidden="true">+</span>
+                        Tambah Proyek
+                    </a>
+                </div>
+
+                <form method="get" action="{% url 'main:show_projects' %}" class="project-search">
+                    <input type="search"
+                           name="project_name"
+                           value="{{ title_query }}"
+                           placeholder="Cari berdasarkan nama proyek"
+                           class="project-search__input"
+                           aria-label="Cari berdasarkan nama proyek">
+                    <button type="submit" class="button">Cari</button>
+                </form>
+
+                <div class="project-flex">
+                {% for project in projects %}
+                    <article class="project-card">
+                        <div class="project-body">
+                            <div class="small-container">
+                            <h2 style="font-size: 32px;">{{ project.project_name }}</h2>
+                            <h4>Tech Stack: {{ project.tech_stack }}</h4>
+                            <p class="project-description">
+                                {{ project.project_desc }}
+                            </p>
+                            </div>
+                            {% if project.have_project_link %}
+                                <a href="{{ project.project_link }}" style="text-decoration:none;" target="_blank">
+                                    <button class="project-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+                                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+                                        </svg>
+                                        Open Project
+                                    </button>
+                                </a>
+                            {% endif %}
+                            {% include "components/project_delete_modal.html" with project=project %}
+                        </div>
+                        <div class="project-thumb" style="--bg-url: url('{{ project.thumbnail|default:'/static/img/default_thumb.png' }}');"></div>
+                    </article>
+                {% empty %}
+                    {% if title_query %}
+                        <p class="empty-state">
+                            Tidak ada proyek dengan nama tersebut.
+                        </p>
+                    {% else %}
+                        <p class="empty-state">
+                            Belum ada project yang ditambahkan.
+                        </p>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
