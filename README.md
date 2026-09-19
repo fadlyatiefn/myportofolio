@@ -214,6 +214,9 @@ Karena solusi AI belum menyelesaikan masalah dengan tepat, saya melakukan penelu
     2. Melakukan integrasi model ke admin page
     3. Memperbaiki error saat adminpage tidak dapat diakses pada versi deploy pws (csrf error)
     4. Membuat test untuk model Project
+- 12 September 2026: 
+    1. Update konten `README.md`
+    2. Menambahkan side navbar untuk tampilan mobile
 
 ### 🤖 AI Disclosure
 
