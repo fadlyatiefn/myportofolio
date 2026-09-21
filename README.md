@@ -214,6 +214,9 @@ Karena solusi AI belum menyelesaikan masalah dengan tepat, saya melakukan penelu
     2. Melakukan integrasi model ke admin page
     3. Memperbaiki error saat adminpage tidak dapat diakses pada versi deploy pws (csrf error)
     4. Membuat test untuk model Project
+- 12 September 2026: 
+    1. Update konten `README.md`
+    2. Menambahkan side navbar untuk tampilan mobile
 
 ### 🤖 AI Disclosure
 
@@ -247,3 +250,40 @@ Selama proses debugging layout, ditemukan keterbatasan AI dalam **image and cont
 Karena terkadang AI masih belum tepat, terutama pada bagian thumbnail untuk project-card, saya melakukan penyesuaian lebih lanjut untuk bagian tersebut agar terlihat lebih responsif
 
 
+## Tugas 3
+
+### ❓ Pertanyaan
+1. Penggunaan ModelForm dibandingkan static HTML didasarkan karena untuk mempermudah dalam menyambungkan tampilan dari halaman form dengan basis data yang ada. Sedangkan untuk penggunaan {% csrf_token %} digunakan untuk mencegah serangan eksternal, dimana tanpa token tersebut, pihak eksternal dapat melakukan pemalsuan request POST seolah - olah request tersebut dilakukan oleh pengguna yang sedang login.
+
+2. Alasan kenapa JSON lebih disukai dibandingkan dengan HTML adalah keterbacaannya yang jauh lebih baik dibandingkan dengan XML, dan juga ukuran payloadnya yang lebih kecil dibandingkan dengan XML.
+
+3. Alur view saat menggunakan views dalam mengembalikan data portofolio (JSON):  Request diterima -> Query -> Proses Serialization -> Pengembalian Response. Proses serialization penting karena data yang dikembalikan oleh Django berupa object Python (instance). Oleh karena itu, serialization berfungsi untuk mengubah object Python menjadi sebuah JSON agar dapat dimengerti oleh client yang menerimanya.
+
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+- 19 September 2026:
+    1. Membuat ModelForm untuk Experience
+    2. Menyelesaikan fungsi CRUD untuk Experience
+- 21 September 2026:
+    1. Menambahkan isi README.md
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Gemini**: Hanya untuk menyesuaikan field - field untuk form Experience
+    
+    **Link:** https://share.gemini.google/UoguKtsgmFby
+
+#### Pembagian Kontribusi
+
+Hampir seluruh bagian saya kerjakan sendiri, selain penyesuaian untuk field - field.
+
+#### Keterbatasan AI
+
+Belum terlalu terasa karena minim penggunaan AI
+
+
+#### Perbaikan Manual
+Melakukan pengecekan pada hasil output AI
