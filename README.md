@@ -261,7 +261,7 @@ Karena terkadang AI masih belum tepat, terutama pada bagian thumbnail untuk proj
 
 
 ### 📶 Progress Mingguan
-**Untuk Full *Commit History*, bisa lihat di branch tugas-2**
+**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
 - 19 September 2026:
     1. Membuat ModelForm untuk Experience
     2. Menyelesaikan fungsi CRUD untuk Experience
