@@ -742,6 +742,35 @@ transition: .2s ease-out;
     margin-top: 32px;
 }
 
+.star-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-star {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    background: transparent;
+    color: var(--ink);
+    padding: 2px;
+    margin-left: 12px;
+}
+
+
+.star-count {
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+}
+
+.title-star{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
 
 @media (max-width: 600px) {
     html,

@@ -15,10 +15,12 @@
                     <h1>Projects</h1>
                     <p class="bio-width100">{{ projects_bio }}</p>
                     </div>
+                    {% if user.is_superuser %}
                     <a href="{% url 'main:create_project' %}" class="button project-add-button">
                         <span aria-hidden="true">+</span>
                         Tambah Proyek
                     </a>
+                    {% endif %}
                 </div>
 
                 <form method="get" action="{% url 'main:show_projects' %}" class="project-search">
@@ -36,7 +38,10 @@
                     <article class="project-card">
                         <div class="project-body">
                             <div class="small-container">
-                            <h2 style="font-size: 32px;">{{ project.project_name }}</h2>
+                                <div class="title-star">
+                                    <h2 style="font-size: 32px;">{{ project.project_name }}</h2>
+                                    {% include "components/project_star.html" with project=project %}
+                                </div>
                             <h4>Tech Stack: {{ project.tech_stack }}</h4>
                             <p class="project-description">
                                 {{ project.project_desc }}
@@ -53,7 +58,10 @@
                                     </button>
                                 </a>
                             {% endif %}
-                            {% include "components/project_delete_modal.html" with project=project %}
+                            
+                            {% if user.is_superuser %}
+                                {% include "components/project_delete_modal.html" with project=project %}
+                            {% endif %}
                         </div>
                         <div class="project-thumb" style="--bg-url: url('{{ project.thumbnail|default:'/static/img/default_thumb.png' }}');"></div>
                     </article>
