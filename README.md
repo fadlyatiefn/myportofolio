@@ -287,3 +287,33 @@ Belum terlalu terasa karena minim penggunaan AI
 
 #### Perbaikan Manual
 Melakukan pengecekan pada hasil output AI
+
+## Tugas 4
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+- 22 September 2026:
+    1. Membuat role editor
+    2. Mengatur permission untuk role editor (mana yang bisa diakses dan mana yang tidak)
+- 27 September 2026:
+    1. Menambahkan isi README.md
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Gemini**: Membantu mengarahkan dalam setup role editor
+    
+    **Link:** https://share.gemini.google/fGWaq2GzqOgZ
+
+#### Pembagian Kontribusi
+
+AI hanya mengarahkan saya, tapi untuk pengerjaan dan tiap keputusan tetap saya yang memilih (seperti keputusan penggunaan syntax, penamaan, dll.)
+
+#### Keterbatasan AI
+
+Belum terlalu terasa
+
+
+#### Perbaikan Manual
+Melakukan pengecekan, pembenaran pada variable - variable terkait pada hasil output AI
