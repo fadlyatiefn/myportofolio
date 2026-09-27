@@ -36,7 +36,10 @@
                             <span class="experience-category">
                                 {{ experience.get_category_display }}
                             </span>
-                            <h2>{{ experience.title }}</h2>
+                            <div class="title-star">
+                                    <h2 style="font-size: 32px;">{{ experience.title }}</h2>
+                                    {% include "components/experience_star.html" with experience=experience %}
+                            </div>
                             <p class="experience-description">
                                 {{ experience.description }}
                             </p>
@@ -47,12 +50,15 @@
                                 <p class="experience-status">Selesai</p>
                             {% endif %}
                         </div>
-                        {% if user.is_superuser %}
+        
                             <div class="action-btn">
+                        {% if user.is_superuser %}
                             {% include "components/experience_delete_modal.html" with experience=experience %}
-                            {% include "components/edit_experience_btn.html" with experience=experience %}
-                            </div>
                         {% endif %}
+                        {% if user.is_superuser or is_editor %}
+                            {% include "components/edit_experience_btn.html" with experience=experience %}
+                        {% endif %}
+                            </div>
                     </article>
                 {% empty %}
                     <p class="empty-state">
