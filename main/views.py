@@ -4,7 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.contrib import messages
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -58,20 +58,13 @@ def show_experience(request):
     return render(request, "experience.html", context)
 
 def show_projects(request):
-    json_response = get_projects_json(request)
-    
-    projects = serializers.deserialize(
-            "json",
-            json_response.content.decode("utf-8"),
-        )
-    projects = [project.object for project in projects]
     title_query = request.GET.get("project_name", "").strip()
     
     context = {
         "name": name,
         "projects_bio": "Here are all my projects i've made untill now!",
-        "projects": projects,
         "title_query": title_query,
+        "form": ProjectForm(),
     }
     return render(request, "project.html", context)
 
@@ -94,13 +87,33 @@ def create_project(request):
 
 def get_projects_json(request):
     title_query = request.GET.get("project_name", "").strip()
-    projects = Projects.objects.all()
+    projects = Projects.objects.prefetch_related('starred_by').all()
 
     if title_query:
         projects = projects.filter(project_name__icontains=title_query)
 
-    projects_json = serializers.serialize("json", projects,  use_natural_foreign_keys=True)
-    return HttpResponse(projects_json, content_type="application/json")
+    data = []
+    for project in projects:
+        starred_users = project.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(project.id),
+            "fields": {
+                "project_name": project.project_name,
+                "project_desc": project.project_desc,
+                "tech_stack": project.tech_stack,
+                "uploaded_date": project.uploaded_date,
+                "thumbnail": project.thumbnail,
+                "project_link": project.project_link,
+                "star_count": len(starred_users),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
 
 @login_required(login_url="/login/")
 def delete_project(request, project_id):
@@ -235,3 +248,23 @@ def toggle_star_exp(request, experience_id):
             experience.starred_by.add(request.user)
 
     return redirect("main:show_experience")
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+def create_project_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            status=403,
+        )
+
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
