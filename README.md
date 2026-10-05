@@ -317,3 +317,40 @@ Belum terlalu terasa
 
 #### Perbaikan Manual
 Melakukan pengecekan, pembenaran pada variable - variable terkait pada hasil output AI
+
+## Tugas 5
+
+### ❓ Pertanyaan
+1. Debouncing adalah teknik untuk ngedelay eksekusi fungsi sampai user berhenti memicu event dalam jeda waktu tertentu, sehingga jika event terjadi lagi sebelum jeda habis maka timer akan di-reset. Teknik ini penting pada fitur pencarian AJAX karena tanpa debounce, setiap ketikan huruf akan mengirim satu request ke server. Dengan debouncing, request hanya dikirim setelah pengguna selesai mengetik, sehingga beban server berkurang dan response lama tidak menimpa hasil pencarian yang lebih baru.
+
+2. Fungsi dari `await` pada `fetch()` adalah untuk menunggu Promise yang dikembalikan oleh `fetch()` selesai terlebih dahulu, sehingga yang kita dapatkan adalah objek `Response` dan bukan Promise yang masih pending. Jika tidak menggunakan `await`, kode setelahnya akan langsung berjalan sebelum data diterima. Akibatnya, variabel hanya berisi Promise yang belum selesai, sehingga pemrosesan data seperti `res.json()` menjadi error atau tampilan dirender dengan data kosong.
+
+3. XSS (Cross-Site Scripting) adalah serangan dimana penyerang menyisipkan script berbahaya ke dalam halaman web, lalu script tersebut dieksekusi di browser korban, misalnya untuk mencuri cookie atau session. Data yang ditampilkan melalui AJAX/JavaScript lebih rentan karena template Django meng-escape variabel secara otomatis, sedangkan pada AJAX, JavaScript merakit HTML sendiri tanpa escape otomatis. Oleh karena itu, jika data dimasukkan menggunakan `innerHTML`, input berbahaya akan ditafsirkan sebagai HTML dan script-nya ikut dieksekusi.
+
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+- 1 Oktober 2026:
+    1. Menampilkan data dengan AJAX untuk bagian experience
+    2. Melakukan perubahan sistem search di page experience dengan melakukan searching dengan ajax dan penggunaan debouncing
+    3. Membuat modal saat ingin menambah experience ( + menambah experience with AJAX)
+    4. Menambahkan notifikasi (toast)
+    5. Menambahkan fitur keamanan XSS
+- 5 Oktober 2026:
+    1. Menambahkan isi README.md
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Claude**: Digunakan untuk membantu penerapan beberapa fitur dan juga membantu melakukan debug
+    
+    **Link:** https://claude.ai/share/7614c186-8d01-40ab-b8af-0aafa0b1dd56
+
+#### Keterbatasan AI
+
+AI terbatas dalam memahami keseluruhan codenya (karena keterbatasan AI yg tidak bisa melihat seluruh file, karena saya menggunakan AI external, bukan yang integrated with IDE). Sehingga banyak bagian - bagian yg di "buat" oleh AI tidak sesuai dan tidak kompatibel dengan code yg sudah aku miliki
+
+
+#### Perbaikan Manual
+Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga web aku dapat berjalan sesuai dengan ketentuan.

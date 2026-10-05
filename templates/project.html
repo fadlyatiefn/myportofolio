@@ -59,6 +59,7 @@
     </main>
     {% if user.is_superuser %}
         {% include "components/project_form_modal.html" %}
+        {% include "components/project_delete_modal.html" %}
     {% endif %}
 
     <script>
@@ -66,6 +67,11 @@
     const BASE_PROJECTS_ENDPOINT = "{% url 'main:get_projects_json' %}";
     const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
     const DUMMY_UUID = "00000000-0000-0000-0000-000000000000";
+
+    const STAR_FILLED_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>`;
+
+    const STAR_OUTLINE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/></svg>`;
+
     let projectsAbortController;
 
     // Elemen DOM
@@ -86,7 +92,7 @@
         gridContainer.classList.toggle('hide', !showGrid);
     }
 
-        // Mengubah karakter khusus HTML menjadi entity agar ditampilkan sebagai teks
+    // Mengubah karakter khusus HTML menjadi entity agar ditampilkan sebagai teks
     function escapeHtml(value) {
         return String(value ?? '')
             .replaceAll('&', '&amp;')
@@ -98,80 +104,82 @@
 
     // Membuat elemen card project
     function buildProjectCardElement(item) {
-    const project = item.fields;
-    const projectId = item.pk;
+        const project = item.fields;
+        const projectId = item.pk;
 
-    const articleElement = document.createElement('article');
-    articleElement.className = 'project-card';
+        const articleElement = document.createElement('article');
+        articleElement.className = 'project-card';
 
-    // Dummy UUID digunakan untuk digantikan oleh ID asli dari data JSON
-    const deleteUrl = "{% url 'main:delete_project' '00000000-0000-0000-0000-000000000000' %}"
-        .replace(DUMMY_UUID, projectId);
-    const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
-        .replace(DUMMY_UUID, projectId);
+        // Dummy UUID digunakan untuk digantikan oleh ID asli dari data JSON
+        const deleteUrl = "{% url 'main:delete_project' '00000000-0000-0000-0000-000000000000' %}"
+            .replace(DUMMY_UUID, projectId);
+        const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
+            .replace(DUMMY_UUID, projectId);
 
-    const linkHtml = project.project_link
-        ? `<a href="${escapeHtml(project.project_link)}" style="text-decoration:none;" target="_blank">
-                <button class="project-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
-                    <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
-                    </svg>
-                    Open Project
-                </button>
-            </a>`
-        : '';
+        const linkHtml = project.project_link
+            ? `<a href="${escapeHtml(project.project_link)}" style="text-decoration:none;" target="_blank">
+                    <button class="project-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+                        </svg>
+                        Open Project
+                    </button>
+                </a>`
+            : '';
 
+        const deleteHtml = IS_SUPERUSER
+            ? `<button type="button"
+                       class="button button-danger"
+                       popovertarget="delete-project-modal"
+                       data-delete-url="${escapeHtml(deleteUrl)}"
+                       data-delete-title="${escapeHtml(project.project_name)}"
+                       aria-label="Hapus ${escapeHtml(project.project_name)}"
+                       title="Hapus proyek">Hapus</button>`
+            : '';
 
-    const deleteHtml = IS_SUPERUSER
-        ? `<form method="post" action="${deleteUrl}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="button button-danger" onclick="return confirm('Yakin ingin menghapus project ini?');">Hapus</button>
-            </form>`
-        : '';
+        const isStarredClass = project.is_starred ? " is-starred" : "";
+        const starIcon = project.is_starred ? STAR_FILLED_SVG : STAR_OUTLINE_SVG;
+        const starTitle = project.star_count > 0
+            ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
+            : "Jadilah yang pertama memberi star";
 
-    const isStarredClass = project.is_starred ? " is-starred" : "";
-    const starText = project.is_starred ? "Unstar" : "Star";
-    const starTitle = project.star_count > 0
-        ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
-        : "Jadilah yang pertama memberi star";
+        // %27 menggantikan ' supaya tidak memutus url('...') di CSS
+        const thumb = escapeHtml(
+            (project.thumbnail || '/static/img/default_thumb.png').replaceAll("'", '%27')
+        );
 
-    // %27 menggantikan ' supaya tidak memutus url('...') di CSS
-    const thumb = escapeHtml(
-        (project.thumbnail || '/static/img/default_thumb.png').replaceAll("'", '%27')
-    );
-
-    articleElement.innerHTML = `
-        <div class="project-body">
-            <div class="small-container">
-                <div class="title-star">
-                    <h2 style="font-size: 32px;">${escapeHtml(project.project_name)}</h2>
-                    <form method="post" action="${starUrl}" class="star-form">
-                        {% csrf_token %}
-                        <button type="submit"
-                                class="button button-star${isStarredClass}"
-                                title="${starTitle}">
-                            <span aria-hidden="true">★</span>
-                            ${starText}
-                            <span class="star-count">${project.star_count}</span>
-                        </button>
-                    </form>
+        articleElement.innerHTML = `
+            <div class="project-body">
+                <div class="small-container">
+                    <div class="title-star">
+                        <h2 style="font-size: 32px;">${escapeHtml(project.project_name)}</h2>
+                        <form method="post" action="${starUrl}" class="star-form">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="button button-star${isStarredClass}"
+                                    title="${starTitle}">
+                                ${starIcon}
+                                <span class="star-count">${project.star_count}</span>
+                            </button>
+                        </form>
+                    </div>
+                    <h4>Tech Stack: ${escapeHtml(project.tech_stack)}</h4>
+                    <p class="project-description">${escapeHtml(project.project_desc)}</p>
                 </div>
-                <h4>Tech Stack: ${escapeHtml(project.tech_stack)}</h4>
-                <p class="project-description">${escapeHtml(project.project_desc)}</p>
+                ${linkHtml}
+                ${deleteHtml}
             </div>
-            ${linkHtml}
-            ${deleteHtml}
-        </div>
-        <div class="project-thumb" style="--bg-url: url('${thumb}');"></div>
-    `;
+            <div class="project-thumb" style="--bg-url: url('${thumb}');"></div>
+        `;
 
-    return articleElement;
+        return articleElement;
     }
 
     function closeProjectModal() {
         document.getElementById("add-project-modal").hidePopover();
     }
+
     // Fetch data project
     async function fetchProjects(searchQuery = "") {
         if (projectsAbortController) projectsAbortController.abort();
@@ -227,7 +235,18 @@
         searchProjects();
     });
 
-        const CREATE_PROJECT_ENDPOINT = "{% url 'main:create_project_ajax' %}";
+    // Isi modal hapus dengan data kartu yang diklik
+    gridContainer.addEventListener('click', (e) => {
+        const deleteBtn = e.target.closest('[data-delete-url]');
+        if (!deleteBtn) return;
+
+        const deleteForm = document.getElementById('delete-project-form');
+        const deleteName = document.getElementById('delete-project-name');
+        if (deleteForm) deleteForm.action = deleteBtn.dataset.deleteUrl;
+        if (deleteName) deleteName.textContent = deleteBtn.dataset.deleteTitle;
+    });
+
+    const CREATE_PROJECT_ENDPOINT = "{% url 'main:create_project_ajax' %}";
     const projectForm = document.getElementById('project-form');
 
     // Membaca nilai cookie, digunakan untuk mengambil token CSRF
