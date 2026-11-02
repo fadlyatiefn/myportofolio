@@ -3,7 +3,6 @@ from django.urls import path
 from main.views import show_main, show_experience, create_project, show_projects, get_projects_json, delete_project, create_experience, get_experiences_json, delete_experience, edit_experience, register, login_user, logout_user, toggle_star, toggle_star_exp, create_project_ajax, create_experience_ajax
 
 app_name = "main"
-
 urlpatterns = [
     path("", show_main, name="show_main"),
     path("experience/", show_experience, name="show_experience"),
