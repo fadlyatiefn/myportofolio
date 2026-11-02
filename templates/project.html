@@ -135,7 +135,8 @@
                        data-delete-url="${escapeHtml(deleteUrl)}"
                        data-delete-title="${escapeHtml(project.project_name)}"
                        aria-label="Hapus ${escapeHtml(project.project_name)}"
-                       title="Hapus proyek">Hapus</button>`
+                       title="Hapus proyek"
+                       >Hapus</button>`
             : '';
 
         const isStarredClass = project.is_starred ? " is-starred" : "";
@@ -244,6 +245,7 @@
         const deleteName = document.getElementById('delete-project-name');
         if (deleteForm) deleteForm.action = deleteBtn.dataset.deleteUrl;
         if (deleteName) deleteName.textContent = deleteBtn.dataset.deleteTitle;
+        
     });
 
     const CREATE_PROJECT_ENDPOINT = "{% url 'main:create_project_ajax' %}";
