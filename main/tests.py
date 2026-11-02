@@ -53,17 +53,24 @@ class MainTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "experience.html")
-        self.assertContains(response, self.experience.title)
-        self.assertContains(response, self.experience.description)
-        self.assertContains(response, "Part-Time")
-        self.assertContains(response, "Sedang berlangsung")
+        self.assertContains(response, 'id="grid"')
+        self.assertContains(response, 'id="experience-search-form"')
         self.assertContains(response, f'href="{reverse("main:show_main")}"')
+
+        data = self.client.get("/api/experience/").json()
+        self.assertEqual(len(data), 1)
+        fields = data[0]["fields"]
+        self.assertEqual(fields["title"], self.experience.title)
+        self.assertEqual(fields["description"], self.experience.description)
+        self.assertEqual(fields["category_display"], "Part-Time")
+        self.assertTrue(fields["is_ongoing"])
 
     def test_empty_experience_page(self):
         Experience.objects.all().delete()
         response = self.client.get(reverse("main:show_experience"))
 
-        self.assertContains(response, "Belum ada pengalaman yang ditambahkan.")
+        self.assertContains(response, "Belum ada pengalaman yang ditambahkan atau ditemukan.")
+        self.assertEqual(self.client.get("/api/experience/").json(), [])
 
     def test_empty_projects_section(self):
             Projects.objects.all().delete()
@@ -74,11 +81,10 @@ class MainTest(TestCase):
     def test_completed_experience(self):
         self.experience.ended_at = timezone.now()
         self.experience.save()
-        response = self.client.get(reverse("main:show_experience"))
 
         self.assertFalse(self.experience.is_ongoing)
-        self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
+        data = self.client.get("/api/experience/").json()
+        self.assertFalse(data[0]["fields"]["is_ongoing"])
 
     def test_completed_projects(self):
             self.projects.project_end = timezone.now()

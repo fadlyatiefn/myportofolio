@@ -13,22 +13,27 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Projects
         fields = [
             "id", "project_name", "project_desc", "tech_stack", "uploaded_date", "thumbnail",
-            "project_link", "starred_by",
+            "project_link",
             "star_count", "is_starred", "starred_by_names",
         ]
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "uploaded_date"]
 
-    def validate_title(self, value):
+    def validate_project_name(self, value):
         value = strip_tags(value).strip()
         if not value:
-            raise serializers.ValidationError("Title cannot be empty.")
+            raise serializers.ValidationError("Project name cannot be empty.")
         return value
 
-    def validate_description(self, value):
+    def validate_project_desc(self, value):
         return strip_tags(value)
 
     def validate_tech_stack(self, value):
         return strip_tags(value)
+
+    def validate_project_link(self, value):
+        if value and not value.lower().startswith(("http://", "https://")):
+            raise serializers.ValidationError("Link must start with http:// or https://.")
+        return value
 
     def get_star_count(self, obj):
         return obj.starred_by.count()
