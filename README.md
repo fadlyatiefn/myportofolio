@@ -354,3 +354,55 @@ AI terbatas dalam memahami keseluruhan codenya (karena keterbatasan AI yg tidak 
 
 #### Perbaikan Manual
 Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga web aku dapat berjalan sesuai dengan ketentuan.
+
+
+## Tugas 6
+
+### ❓ Pertanyaan
+1. REST (Representational State Transfer) adalah gaya arsitektur API di mana setiap resource punya URL sendiri dan aksi terhadap resource tersebut ditentukan oleh HTTP method (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`). Server juga bersifat stateless, artinya setiap request harus membawa semua informasi yang dibutuhkan. 
+
+Mengembalikan JSON saja tidak cukup untuk dibilang APInya RESTful, karena JSON hanyalah format data, sedangkan REST adalah soal desain. API baru bisa disebut RESTful kalau URL-nya merepresentasikan resource (bukan aksi), HTTP method dipakai sesuai maknanya, dan response memakai status code yang tepat.
+
+Perbedaan `PUT` dengan `PATCH` adalah `PUT` mengganti seluruh resource sehingga semua field harus dikirim, dan field yang tidak dikirim bisa menjadi kosong atau error. `PATCH` hanya mengubah field yang dikirim, sedangkan field lainnya tetap. `PUT` cocok untuk form edit yang mengirim ulang semua field, misalnya edit profil. `PATCH` cocok untuk perubahan satu field, misalnya mengubah status task menjadi selesai.
+
+2. Serializer berfungsi sebagai penerjemah dua arah antara objek model Django dan format seperti JSON. Pada serialization, objek model atau queryset diubah menjadi JSON untuk response. Pada deserialization, data dari request diubah menjadi data Python dan divalidasi sebelum disimpan ke model. Dibanding merakit dictionary manual dengan `JsonResponse`, serializer punya beberapa keuntungan:
+
+   - Field cukup dideklarasikan sekali lewat `ModelSerializer`, tidak perlu ditulis ulang di setiap view.
+   - Validation dan error message sudah tersedia, sedangkan secara manual harus ditulis sendiri.
+   - Konversi tipe data (seperti `DateTimeField` dan `DecimalField`) dilakukan otomatis.
+   - Format output konsisten di semua endpoint dan lebih mudah dirawat saat model berubah.
+
+3. Autentikasi adalah proses memastikan identitas user yang mengirim request yang mana di DRF ditangani oleh `authentication_classes`. Sedangkan, Otorisasi adalah proses menentukan apa yang boleh dilakukan user tersebut setelah identitasnya diketahui yang ditangani oleh `permission_classes`. Jadi user yang sudah terautentikasi belum tentu berhak mengakses atau mengubah semua data.
+
+Hak akses harus diperiksa dengan permission class di server karena menyembunyikan tombol di template hanya mengubah tampilan. Client tetap bisa mengirim request langsung ke endpoint tanpa melewati template. Selama server tidak memeriksa permission sendiri, request tersebut akan tetap diproses.
+
+4. `SessionAuthentication` mengandalkan session cookie, dan browser otomatis menyertakan cookie tersebut di setiap request ke domain yang sama, termasuk request yang dipicu oleh situs lain. Hal ini membuat request yang mengubah data (`POST`, `PUT`, `PATCH`, `DELETE`) rentan terhadap CSRF (Cross-Site Request Forgery). Token CSRF mencegahnya karena token tidak bisa dibaca oleh situs lain, sehingga hanya request dari halaman yang sah yang diterima.
+
+Test dengan `force_authenticate` tidak cukup karena pengecekan CSRF dilakukan di dalam `SessionAuthentication`, sedangkan `force_authenticate` melewati proses autentikasi tersebut. Akibatnya test tetap lolos walaupun proteksi CSRF tidak aktif. Untuk membuktikannya, gunakan `APIClient(enforce_csrf_checks=True)` dengan login session sungguhan, lalu pastikan request tanpa token ditolak dengan `403`.
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+- 2 November 2026:
+    1. Menyelesaikan Tutorial 7
+- 4 November 2026:
+    1. Mengatur api_urls untuk model Experience
+    2. Mengatur api_views untuk model Experience
+    3. Mengatur ExperienceSerializers untuk model Experience
+    4. Menambahkan unit test
+    5. Integrate AJAX Experience dengan environment REST API
+- 9 November 2026:
+    1. Mengupdate isi README.md
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Claude**: Digunakan untuk membantu penerapan beberapa fitur, especially dalam membuat unit test dan integrate AJAXnya Experience ke environment REST API
+    
+#### Keterbatasan AI
+
+AI hanya bisa berjalan dengan baik dan sesuai kemauan saya ketika saya memberikan referensi yang banyak. Yang mana dalam mencari referensi, tentunya kita harus memahami apa yg dimau kita secara detail, Oleh karena itu, saya juga perlu memahami secara mendalam mengenai tugas ini
+
+
+#### Perbaikan Manual
+Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga web aku dapat berjalan sesuai dengan ketentuan.
